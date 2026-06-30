@@ -98,7 +98,7 @@ function buildInvestorProfiles(): InvestorProfile[] {
 }
 
 // actual co-investment counts (rounds where both investors appear together)
-function buildCoInvestMap(profiles: InvestorProfile[]): Map<string, Map<string, number>> {
+function buildCoInvestMap(): Map<string, Map<string, number>> {
   const map = new Map<string, Map<string, number>>()
   for (const round of FUNDING_ROUNDS) {
     for (const a of round.investors) {
@@ -149,7 +149,7 @@ const CARDS_PAGE = 48
 
 export default function InvestorMapPage() {
   const allProfiles = useMemo(() => buildInvestorProfiles(), [])
-  const coInvestMap = useMemo(() => buildCoInvestMap(allProfiles), [allProfiles])
+  const coInvestMap = useMemo(() => buildCoInvestMap(), [])
 
   const [search, setSearch] = useState('')
   const [sectorFilter, setSectorFilter] = useState<SubSector | 'All'>('All')
