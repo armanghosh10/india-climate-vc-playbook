@@ -7,9 +7,9 @@ import { Analytics } from '@vercel/analytics/next'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'India Climate-Tech VC Playbook',
+  title: 'India Climate-Tech Map',
   description:
-    "Interactive analysis of India's climate-tech investment landscape — funding rounds, investor map, whitespace heatmap, graduation funnel, and research corpus. Built by Arman Ghosh.",
+    "Interactive analysis of India's climate-tech investment landscape: funding rounds, investor map, whitespace heatmap, graduation funnel, and research corpus. Built by Arman Ghosh.",
 }
 
 export default function RootLayout({

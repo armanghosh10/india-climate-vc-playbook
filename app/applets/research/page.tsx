@@ -102,7 +102,7 @@ export default function ResearchPage() {
 
         {/* breadcrumb */}
         <p className="text-xs text-zinc-500 mb-6">
-          <Link href="/" className="hover:text-zinc-300">India Climate-Tech VC Playbook</Link>
+          <Link href="/" className="hover:text-zinc-300">India Climate-Tech Map</Link>
           {' / '}
           <span className="text-zinc-300">Research + Reports</span>
         </p>
@@ -110,7 +110,7 @@ export default function ResearchPage() {
         <div className="mb-8">
           <h1 className="text-2xl font-bold tracking-tight mb-1">Research + Reports</h1>
           <p className="text-zinc-400 text-sm">
-            {REPORTS.length} canonical India climate-tech reports with sourced headline figures — plus a Claude-powered chat grounded on this corpus.
+            {REPORTS.length} canonical India climate-tech reports with sourced headline figures, plus a Claude-powered chat grounded on this corpus.
           </p>
         </div>
 
@@ -210,7 +210,7 @@ export default function ResearchPage() {
                   <div className="text-center">
                     <p className="text-sm text-zinc-300 mb-1">Your Anthropic API key</p>
                     <p className="text-xs text-zinc-500 max-w-xs">
-                      Used only in this browser — stored in localStorage, never sent to our servers.
+                      Used only in this browser. Stored in localStorage, never sent to our servers.
                       Get a key at{' '}
                       <a href="https://console.anthropic.com" target="_blank" rel="noopener noreferrer" className="text-emerald-400 underline">
                         console.anthropic.com
@@ -303,7 +303,7 @@ export default function ResearchPage() {
         <p className="text-[11px] text-zinc-600 mt-10 leading-relaxed max-w-3xl">
           Report corpus sourced from IEA, IRENA, BloombergNEF, RMI, WRI, CEEW, CPI, TERI, NITI Aayog, McKinsey, IFC, and MNRE.
           All headline figures are cited with page references. Chat uses claude-sonnet-4-6 and is grounded only on
-          the corpus above — it will not answer from general training data if the corpus
+          the corpus above. It will not answer from general training data if the corpus
           does not cover the question.
         </p>
       </div>

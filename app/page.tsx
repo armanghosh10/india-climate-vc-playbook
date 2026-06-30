@@ -5,7 +5,7 @@ const APPLETS = [
     slug: 'funding-explorer',
     title: 'Funding Rounds Explorer',
     description:
-      'India climate-tech rounds (2020–present) — filter by sub-sector, tech type, climate outcome, stage, city, investor. Every row links to source.',
+      'India climate-tech rounds (2020–present). Filter by sub-sector, tech type, climate outcome, stage, city, investor. Every row links to source.',
     icon: '💰',
     status: 'live',
   },
@@ -13,7 +13,7 @@ const APPLETS = [
     slug: 'whitespace-map',
     title: 'Sector × Tech Whitespace Map',
     description:
-      'Sub-sector vs. technology type heatmap showing funding density and market gap analysis — where has capital not yet gone?',
+      'Sub-sector vs. technology type heatmap showing funding density and market gap analysis. Where has capital not yet gone?',
     icon: '🗺️',
     status: 'live',
   },
@@ -21,7 +21,7 @@ const APPLETS = [
     slug: 'investor-map',
     title: 'Investor Map',
     description:
-      'India climate-tech funds — mandates, stage focus, ticket sizes, and syndicate affinity matrix showing natural co-investment patterns.',
+      'India climate-tech funds: mandates, stage focus, ticket sizes, and syndicate affinity matrix showing natural co-investment patterns.',
     icon: '🤝',
     status: 'live',
   },
@@ -37,7 +37,7 @@ const APPLETS = [
     slug: 'research',
     title: 'Research & Reports',
     description:
-      'Canonical India climate-tech reports — CEEW, CPI, IEA, BloombergNEF, IRENA and more — with parsed headline figures and a Claude-powered chat over the corpus.',
+      'Canonical India climate-tech reports: CEEW, CPI, IEA, BloombergNEF, IRENA and more, with parsed headline figures and a Claude-powered chat over the corpus.',
     icon: '📚',
     status: 'live',
   },
@@ -52,10 +52,10 @@ export default function Home() {
             India · Climate Tech · 2020–present
           </div>
           <h1 className="text-3xl font-bold mb-3 tracking-tight">
-            India Climate-Tech VC Playbook
+            India Climate-Tech Map
           </h1>
           <p className="text-zinc-400 text-lg max-w-2xl">
-            Interactive tools for analysing India&apos;s climate-tech investment landscape —
+            Interactive tools for analysing India&apos;s climate-tech investment landscape,
             built the way an analyst actually works a market.
           </p>
           <p className="text-zinc-600 text-sm mt-3 max-w-2xl">
@@ -67,7 +67,7 @@ export default function Home() {
             <span className="text-zinc-300 font-medium">Arman Ghosh</span>
             {' · '}
             <a
-              href="https://www.linkedin.com/in/armanghosh10/"
+              href="https://www.linkedin.com/in/arman-ghosh"
               target="_blank"
               rel="noopener noreferrer"
               className="text-emerald-400 hover:text-emerald-300 underline underline-offset-2"

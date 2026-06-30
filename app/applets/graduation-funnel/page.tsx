@@ -15,6 +15,7 @@ const SECTOR_COLOURS: Record<string, string> = {
   'Industrial Decarbonisation': 'bg-orange-600',
   'Carbon & Climate Management': 'bg-teal-600',
   'Built Environment': 'bg-amber-600',
+  'Circular Economy': 'bg-lime-600',
 }
 
 const SECTOR_FAINT: Record<string, string> = {
@@ -24,10 +25,11 @@ const SECTOR_FAINT: Record<string, string> = {
   'Industrial Decarbonisation': 'bg-orange-950/60 text-orange-300 border-orange-900',
   'Carbon & Climate Management': 'bg-teal-950/60 text-teal-300 border-teal-900',
   'Built Environment': 'bg-amber-950/60 text-amber-300 border-amber-900',
+  'Circular Economy': 'bg-lime-950/60 text-lime-300 border-lime-900',
 }
 
 function pct(num: number, denom: number) {
-  if (denom === 0) return '—'
+  if (denom === 0) return 'N/A'
   return `${Math.round((100 * num) / denom)}%`
 }
 
@@ -49,7 +51,7 @@ export default function GraduationFunnelPage() {
 
         {/* breadcrumb */}
         <p className="text-xs text-zinc-500 mb-6">
-          <Link href="/" className="hover:text-zinc-300">India Climate-Tech VC Playbook</Link>
+          <Link href="/" className="hover:text-zinc-300">India Climate-Tech Map</Link>
           {' / '}
           <span className="text-zinc-300">Graduation Funnel</span>
         </p>
@@ -67,7 +69,7 @@ export default function GraduationFunnelPage() {
         <div className="border border-amber-900/60 bg-amber-950/20 rounded-lg px-4 py-3 mb-6">
           <p className="text-xs text-amber-300">
             <span className="font-semibold">Methodology note: </span>
-            India&apos;s climate-tech VC ecosystem is nascent. Cohort sizes are small — some years
+            India&apos;s climate-tech VC ecosystem is nascent. Cohort sizes are small, and some years
             have fewer than 5 seed rounds per sub-sector. Graduation rates are computed within
             this dataset only: a company that raised Series A without press coverage in approved
             sources may show as 0%. Only cohorts with N≥3 seed companies are shown by default.
@@ -79,14 +81,14 @@ export default function GraduationFunnelPage() {
         <div className="border-l-2 border-emerald-500 bg-emerald-950/20 px-4 py-3 rounded-r-lg mb-8">
           <p className="text-[10px] uppercase tracking-wider text-emerald-400 font-medium mb-1">The read</p>
           <p className="text-sm text-zinc-200 leading-snug max-w-4xl">
-            Transportation shows the highest and fastest graduation rates — the 2022 cohort converted
+            Transportation shows the highest and fastest graduation rates: the 2022 cohort converted
             33% to Series A and 17% to Series B within two years, anchored by River (Yamaha). Food &amp;
             Agriculture 2021 and 2022 cohorts show ~43–50% Seed→A conversion, driven by precision agri
             companies with defensible data moats. The most striking finding is Industrial Decarbonisation:
             no cohort has produced a single in-dataset Series A graduation, consistent with the longer
             capital cycles and higher technical risk in hard-to-abate sectors. Carbon &amp; Climate
             Management&apos;s 2022 cohort graduated well (67%), but the 2023 cohort has yet to produce
-            any follow-on — either still on runway or reflecting a market reset after the voluntary
+            any follow-on, either still on runway or reflecting a market reset after the voluntary
             carbon market downturn.
           </p>
         </div>
@@ -150,7 +152,7 @@ export default function GraduationFunnelPage() {
 
                 {/* funnel bars */}
                 <div className="px-5 py-4 space-y-3">
-                  {/* Seed bar — always 100% */}
+                  {/* Seed bar: always 100% */}
                   <div>
                     <div className="flex justify-between text-xs text-zinc-400 mb-1">
                       <span>Seed / Pre-seed</span>
@@ -177,7 +179,15 @@ export default function GraduationFunnelPage() {
                   <div>
                     <div className="flex justify-between text-xs text-zinc-400 mb-1">
                       <span>→ Series B</span>
-                      <span className="font-mono">{row.graduatedToB.length} ({pct(row.graduatedToB.length, seedN)})</span>
+                      <span className="font-mono">
+                        {row.graduatedToB.length} ({pct(row.graduatedToB.length, seedN)} of seed
+                        {row.graduatedToA.length > 0 && (
+                          <> · {pct(
+                            row.graduatedToB.filter(c => row.graduatedToA.includes(c)).length,
+                            row.graduatedToA.length
+                          )} of A</>
+                        )})
+                      </span>
                     </div>
                     <div className="h-5 rounded bg-zinc-800 w-full relative">
                       <div

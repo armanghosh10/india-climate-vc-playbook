@@ -12,7 +12,7 @@ Built by Arman Ghosh as a portfolio artifact for Samara Capital's Digital & AI i
 
 | Applet | What it shows |
 |---|---|
-| **Funding Rounds Explorer** | 170+ verified India climate-tech rounds (2020–present), filterable by sector, stage, geography, investor, and year |
+| **Funding Rounds Explorer** | 215 verified India climate-tech rounds (2020–present), filterable by sector, stage, geography, investor, and year |
 | **Sector × Tech Whitespace Map** | 6×6 heatmap of funding density (sub-sector × technology type), with emissions context and gap analysis per cell |
 | **Investor Map** | 19 tracked funds with climate mandates, stage focus, and ticket sizes; co-investment affinity matrix |
 | **Graduation Funnel** | Of India climate-tech Seed cohorts, what % reached Series A or Series B? By sector and year |

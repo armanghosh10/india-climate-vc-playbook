@@ -3,7 +3,7 @@
 import { useState, useMemo } from 'react'
 import Link from 'next/link'
 import { FUNDING_ROUNDS } from '@/lib/data/funding-rounds'
-import { SECTOR_CONTEXTS, GAP_NOTES } from '@/lib/data/whitespace'
+import { SECTOR_CONTEXTS, GAP_NOTES, CELL_MARKET_NOTES } from '@/lib/data/whitespace'
 import { SUB_SECTORS, TECH_TYPES } from '@/lib/data/taxonomy'
 import type { SubSector, TechType } from '@/lib/data/taxonomy'
 
@@ -47,19 +47,17 @@ function cellColour(count: number): string {
 }
 
 function fmtMn(n: number) {
-  if (n === 0) return '—'
+  if (n === 0) return ''
   if (n >= 1000) return `$${(n / 1000).toFixed(1)}B`
   return `$${Math.round(n)}M`
 }
 
-// Short labels for tech types in the header row
 const TECH_SHORT: Record<TechType, string> = {
-  'Software / SaaS': 'Software',
-  'Marketplace / aggregator': 'Marketplace',
-  'Deep-tech hardware': 'Deep-tech',
-  'Manufacturing / industrials': 'Manufacturing',
-  'Project developer': 'Project dev.',
-  'Fintech / risk': 'Fintech',
+  'Software': 'Software',
+  'Marketplace': 'Marketplace',
+  'Hardware & Industry': 'Hardware',
+  'Project Development': 'Project Dev',
+  'Fintech': 'Fintech',
 }
 
 // ── component ────────────────────────────────────────────────────────────────
@@ -81,7 +79,7 @@ export default function WhitespaceMapPage() {
 
         {/* breadcrumb */}
         <p className="text-xs text-zinc-500 mb-6">
-          <Link href="/" className="hover:text-zinc-300">India Climate-Tech VC Playbook</Link>
+          <Link href="/" className="hover:text-zinc-300">India Climate-Tech Map</Link>
           {' / '}
           <span className="text-zinc-300">Whitespace Map</span>
         </p>
@@ -90,7 +88,7 @@ export default function WhitespaceMapPage() {
         <div className="mb-8">
           <h1 className="text-2xl font-bold tracking-tight mb-1">Sector × Tech Whitespace Map</h1>
           <p className="text-zinc-400 text-sm">
-            Where has India climate-tech capital gone — and where hasn&apos;t it? Cell colour = funding
+            Where has India climate-tech capital gone, and where hasn&apos;t it? Cell colour = funding
             density. Click any cell for deal breakdown and gap analysis.
           </p>
         </div>
@@ -99,14 +97,16 @@ export default function WhitespaceMapPage() {
         <div className="border-l-2 border-emerald-500 bg-emerald-950/20 px-4 py-3 rounded-r-lg mb-8">
           <p className="text-[10px] uppercase tracking-wider text-emerald-400 font-medium mb-1">The read</p>
           <p className="text-sm text-zinc-200 leading-snug max-w-4xl">
-            The heatmap reveals three structural patterns. First, Manufacturing is the dominant
-            technology layer in Transportation (23 rounds) — almost all EV OEM bets — while the same
-            cell in Industrial Decarbonisation has only 11 rounds and <em>zero</em> in green-steel or
-            cement tech. Second, the Project developer row lights up for Energy ($648M deployed) but is
-            dark everywhere else — no VC-backed project developers in carbon, agriculture, or buildings.
-            Third, Software / SaaS has gained traction in Food &amp; Agriculture (6 rounds) and Built
-            Environment (5 rounds) but is nearly absent in Industrial Decarbonisation — the sector
-            where process-optimisation software has the largest per-unit emissions impact.
+            The heatmap reveals four structural patterns. First, Hardware dominates Transportation
+            (EV OEM manufacturing bets) and has one beachhead in Industrial Decarbonisation
+            (Newtrace, green hydrogen electrolysers), but green-steel, cement, and DAC hardware
+            remain entirely unfunded in India VC. Second, Project Development lights up for Energy
+            but is dark across Carbon, Agriculture, Built Environment, and Circular Economy. Third,
+            Software has gained traction in Food &amp; Agriculture and Built Environment but is
+            nearly absent in Industrial Decarbonisation, where process-optimisation software has
+            the largest per-unit emissions impact. Fourth, the Circular Economy row shows early
+            density in battery recycling and waste marketplaces but is empty in Software, Project
+            Development, and Fintech.
           </p>
         </div>
 
@@ -161,7 +161,7 @@ export default function WhitespaceMapPage() {
                               <span className="text-[10px] opacity-75 leading-none">{fmtMn(cell.totalUsdMn)}</span>
                             </>
                           ) : (
-                            <span className="text-zinc-700 text-xs">—</span>
+                            <span className="text-zinc-700 text-xs"></span>
                           )}
                         </button>
                       </td>
@@ -230,9 +230,11 @@ export default function WhitespaceMapPage() {
                     </div>
                     <div>
                       <p className="text-[10px] uppercase tracking-wider text-zinc-500 font-medium mb-1">
-                        Market size context
+                        Market context
                       </p>
-                      <p className="text-xs text-zinc-300 leading-relaxed">{selectedContext.marketDescr}</p>
+                      <p className="text-xs text-zinc-300 leading-relaxed">
+                        {CELL_MARKET_NOTES[`${selected.subSector}::${selected.techType}`] ?? selectedContext.marketDescr}
+                      </p>
                     </div>
                     <div className="flex flex-wrap gap-2">
                       {selectedContext.sources.map(s => (
@@ -269,8 +271,8 @@ export default function WhitespaceMapPage() {
         </div>
 
         <p className="text-[11px] text-zinc-600 leading-relaxed max-w-3xl">
-          Matrix derived from 170+ verified India climate-tech funding rounds, 2020–present.
-          Cell values reflect VC and growth equity rounds in the dataset — DFI debt, project
+          Matrix derived from 280+ verified India climate-tech funding rounds, 2020–present.
+          Cell values reflect VC and growth equity rounds in the dataset; DFI debt, project
           finance, and corporate M&A are excluded. Sector context figures sourced from IEA,
           MoEFCC, CEEW, NITI Aayog, and CPI with citations per cell.
         </p>

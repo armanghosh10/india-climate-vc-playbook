@@ -136,8 +136,8 @@ export const REPORTS: Report[] = [
         url: "https://www.mckinsey.com/capabilities/sustainability/our-insights/decarbonising-india-charting-a-pathway-for-sustainable-growth",
       },
       {
-        label: "McKinsey report PDF (executive summary)",
-        url: "https://www.mckinsey.com/~/media/mckinsey/business%20functions/sustainability/our%20insights/decarbonizing%20india%20charting%20a%20pathway%20for%20sustainable%20growth/Decarbonising-India-Charting-a-pathway-for-sustainable-growth-ES-Oct-2022.pdf",
+        label: "Business Standard coverage of McKinsey report",
+        url: "https://www.business-standard.com/article/current-affairs/decarbonising-india-mckinsey-report-gives-10-steps-to-reach-net-zero-goal-122110301779_1.html",
       },
     ],
   },
@@ -247,17 +247,11 @@ export const REPORTS: Report[] = [
   {
     title: "Scaling Clean Energy in India: Financing the Transition",
     publisher: "BloombergNEF",
-    year: 2024,
+    year: 2025,
     url: "https://about.bnef.com/insights/clean-energy/scaling-clean-energy-in-india-financing-the-transition/",
     description:
       "Analysis of India's clean energy financing landscape, covering investment flows in renewables and EV sectors, constraints on capital access, and the policy environment needed to close the funding gap.",
     headlineFigures: [
-      {
-        figure: "USD 68 billion",
-        context:
-          "India's clean energy investment in 2025 — a 15% year-on-year increase",
-        page: "Key findings",
-      },
       {
         figure: "59 GW",
         context:
@@ -337,12 +331,6 @@ export const REPORTS: Report[] = [
         context:
           "Annual cost of India's fossil fuel imports (coal, gas, oil) — a key driver for domestic clean energy investment",
         page: "Energy security",
-      },
-      {
-        figure: "20–40 GW shortfall by 2027",
-        context:
-          "Projected evening power shortages even with all planned thermal and hydro capacity built on time",
-        page: "Grid reliability",
       },
     ],
     tags: ["Energy", "Transportation", "Market sizing"],
@@ -492,7 +480,7 @@ export const REPORTS: Report[] = [
     title: "Financing India's Energy Transition (Green Bonds for Renewable Energy and Electric Transport)",
     publisher: "CEEW Centre for Energy Finance (CEEW-CEF)",
     year: 2022,
-    url: "https://www.ceew.in/cef/publications/financing-india-s-energy-transition",
+    url: "https://www.ceew.in/publications/financing-indias-energy-transition-green-bonds-for-renewable-energy-and-electric-transport",
     description:
       "Analysis of green bonds as a mechanism to finance India's renewable energy and electric mobility transition, examining domestic and international market potential, sovereign green bond frameworks and key barriers to scale.",
     headlineFigures: [
@@ -501,12 +489,6 @@ export const REPORTS: Report[] = [
         context:
           "Green bonds raised by India since 2014 across the 'hidden universe' of domestic and international issuances",
         page: "Market overview",
-      },
-      {
-        figure: "3.6x oversubscribed",
-        context:
-          "Average oversubscription of Indian green bond international issuances, signalling strong investor appetite",
-        page: "Demand analysis",
       },
       {
         figure: "USD 2 billion",
@@ -519,7 +501,7 @@ export const REPORTS: Report[] = [
     sources: [
       {
         label: "CEEW-CEF Financing India's Energy Transition",
-        url: "https://www.ceew.in/cef/publications/financing-india-s-energy-transition",
+        url: "https://www.ceew.in/publications/financing-indias-energy-transition-green-bonds-for-renewable-energy-and-electric-transport",
       },
     ],
   },
@@ -691,9 +673,9 @@ export const REPORTS: Report[] = [
       "Analysis of decarbonisation pathways for industrial heat — the hardest-to-abate segment of industrial emissions in India and Southeast Asia — covering electrification, green hydrogen and biomass options with economics.",
     headlineFigures: [
       {
-        figure: "~70% of India's GHG",
+        figure: "14% of global CO2",
         context:
-          "Share of India's emissions driven by industry-related sectors including power, steel, cement, chemicals and transportation",
+          "Industrial heat accounts for 14% of global CO2 emissions today — equivalent to all emissions from road passenger transport, aviation and shipping combined",
         page: "Context",
       },
     ],

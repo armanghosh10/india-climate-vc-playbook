@@ -14,14 +14,21 @@ const SECTOR_COLOURS: Record<string, string> = {
   'Industrial Decarbonisation': 'bg-orange-950/60 text-orange-300 border-orange-900',
   'Carbon & Climate Management': 'bg-teal-950/60 text-teal-300 border-teal-900',
   'Built Environment': 'bg-amber-950/60 text-amber-300 border-amber-900',
+  'Circular Economy': 'bg-lime-950/60 text-lime-300 border-lime-900',
 }
 
 const STAGE_COLOURS: Record<string, string> = {
   'Pre-seed': 'bg-zinc-800 text-zinc-300',
   'Seed': 'bg-emerald-950 text-emerald-300',
+  'Pre-Series A': 'bg-sky-950 text-sky-300',
   'Series A': 'bg-blue-950 text-blue-300',
+  'Pre-Series B': 'bg-indigo-950 text-indigo-300',
   'Series B': 'bg-violet-950 text-violet-300',
-  'Series C+': 'bg-amber-950 text-amber-300',
+  'Series C': 'bg-amber-950 text-amber-300',
+  'Series D': 'bg-orange-950 text-orange-300',
+  'Series E': 'bg-red-950 text-red-300',
+  'Pre-IPO': 'bg-yellow-950 text-yellow-200',
+  'Acquired': 'bg-zinc-700 text-zinc-200',
 }
 
 // ── helpers ──────────────────────────────────────────────────────────────────
@@ -41,6 +48,50 @@ function fmtDate(d: string) {
 const ALL_YEARS = Array.from(new Set(FUNDING_ROUNDS.map(r => parseInt(r.date.split('-')[0])))).sort()
 const PAGE_SIZE = 30
 
+function medianTimeBetweenRoundsMonths(rounds: typeof FUNDING_ROUNDS): number | null {
+  const byCompany = new Map<string, string[]>()
+  for (const r of rounds) {
+    if (!byCompany.has(r.company)) byCompany.set(r.company, [])
+    byCompany.get(r.company)!.push(r.date)
+  }
+  const gaps: number[] = []
+  Array.from(byCompany.values()).forEach(dates => {
+    if (dates.length < 2) return
+    const sorted = [...dates].sort()
+    for (let i = 1; i < sorted.length; i++) {
+      const [y0, m0] = sorted[i - 1].split('-').map(Number)
+      const [y1, m1] = sorted[i].split('-').map(Number)
+      gaps.push((y1 - y0) * 12 + (m1 - m0))
+    }
+  })
+  if (gaps.length === 0) return null
+  gaps.sort((a, b) => a - b)
+  const mid = Math.floor(gaps.length / 2)
+  return gaps.length % 2 === 0 ? (gaps[mid - 1] + gaps[mid]) / 2 : gaps[mid]
+}
+
+function medianStepUp(rounds: typeof FUNDING_ROUNDS): number | null {
+  const byCompany = new Map<string, typeof FUNDING_ROUNDS>()
+  for (const r of rounds) {
+    if (!byCompany.has(r.company)) byCompany.set(r.company, [])
+    byCompany.get(r.company)!.push(r)
+  }
+  const multiples: number[] = []
+  Array.from(byCompany.values()).forEach(rds => {
+    if (rds.length < 2) return
+    const sorted = [...rds].sort((a, b) => a.date.localeCompare(b.date))
+    for (let i = 1; i < sorted.length; i++) {
+      if (sorted[i - 1].amountUsdMn && sorted[i].amountUsdMn) {
+        multiples.push((sorted[i].amountUsdMn as number) / (sorted[i - 1].amountUsdMn as number))
+      }
+    }
+  })
+  if (multiples.length === 0) return null
+  multiples.sort((a, b) => a - b)
+  const mid = Math.floor(multiples.length / 2)
+  return multiples.length % 2 === 0 ? (multiples[mid - 1] + multiples[mid]) / 2 : multiples[mid]
+}
+
 // ── component ────────────────────────────────────────────────────────────────
 
 export default function FundingExplorerPage() {
@@ -51,6 +102,7 @@ export default function FundingExplorerPage() {
   const [sortCol, setSortCol] = useState<'date' | 'amount'>('date')
   const [sortDir, setSortDir] = useState<'desc' | 'asc'>('desc')
   const [page, setPage] = useState(1)
+  const [expandedInvestors, setExpandedInvestors] = useState<string | null>(null)
 
   const filtered = useMemo(() => {
     let rows = FUNDING_ROUNDS.slice()
@@ -87,6 +139,9 @@ export default function FundingExplorerPage() {
     .filter(r => r.amountUsdMn !== null)
     .reduce((s, r) => s + (r.amountUsdMn as number), 0)
 
+  const medianTime = medianTimeBetweenRoundsMonths(filtered)
+  const medianMult = medianStepUp(filtered)
+
   function toggleSort(col: 'date' | 'amount') {
     if (sortCol === col) setSortDir(d => (d === 'desc' ? 'asc' : 'desc'))
     else { setSortCol(col); setSortDir('desc') }
@@ -100,7 +155,7 @@ export default function FundingExplorerPage() {
 
         {/* breadcrumb */}
         <p className="text-xs text-zinc-500 mb-6">
-          <Link href="/" className="hover:text-zinc-300">India Climate-Tech VC Playbook</Link>
+          <Link href="/" className="hover:text-zinc-300">India Climate-Tech Map</Link>
           {' / '}
           <span className="text-zinc-300">Funding Rounds Explorer</span>
         </p>
@@ -117,20 +172,20 @@ export default function FundingExplorerPage() {
         <div className="border-l-2 border-emerald-500 bg-emerald-950/20 px-4 py-3 rounded-r-lg mb-8">
           <p className="text-[10px] uppercase tracking-wider text-emerald-400 font-medium mb-1">The read</p>
           <p className="text-sm text-zinc-200 leading-snug max-w-4xl">
-            Transportation absorbs the most capital and the largest individual tickets — EV OEM
+            Transportation absorbs the most capital and the largest individual tickets: EV OEM
             manufacturing bets at scale (Yamaha→River $40M, Kabira Mobility $50M, EKA Mobility $23M)
             sit alongside a parallel charging-infrastructure wave of $3–25M rounds. Outside transport,
             the ecosystem is structurally early: Seed and Series A together make up 66% of all rounds.
             The sharpest whitespace is at the Series B layer for Carbon & Climate Management, Built
-            Environment, and Industrial Decarbonisation — each has fewer than five rounds above Series A
+            Environment, and Industrial Decarbonisation, each with fewer than five rounds above Series A
             in this dataset against large unaddressed emissions footprints. 2022 was the volume peak
-            (42 rounds); 2024 matched it at 40, but the composition shifted — larger tickets, fewer
+            (42 rounds); 2024 matched it at 40, but the composition shifted: larger tickets, fewer
             pre-seed bets.
           </p>
         </div>
 
         {/* stat bar */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 mb-6">
           {[
             { label: 'Rounds shown', value: filtered.length.toString() },
             {
@@ -141,6 +196,14 @@ export default function FundingExplorerPage() {
             },
             { label: 'Unique companies', value: Array.from(new Set(filtered.map(r => r.company))).length.toString() },
             { label: 'Years covered', value: '2020–2026' },
+            {
+              label: 'Median months between rounds',
+              value: medianTime !== null ? `${Math.round(medianTime)} mo` : 'N/A',
+            },
+            {
+              label: 'Median round step-up',
+              value: medianMult !== null ? `${medianMult.toFixed(1)}x` : 'N/A',
+            },
           ].map(s => (
             <div key={s.label} className="bg-zinc-900 border border-zinc-800 rounded-lg px-4 py-3">
               <p className="text-[10px] text-zinc-500 uppercase tracking-wider">{s.label}</p>
@@ -257,24 +320,18 @@ export default function FundingExplorerPage() {
                 </tr>
               )}
               {pageRows.map((r, i) => {
-                const isRecent = parseInt(r.date.split('-')[0]) >= 2025
-                const leadInvestors = r.investors
-                  .filter(inv => !['undisclosed', 'undisclosed angels', 'existing investors'].includes(inv))
-                  .slice(0, 3)
+                const allVisible = r.investors.filter(inv => !['undisclosed', 'undisclosed angels', 'existing investors'].includes(inv))
+                const leadInvestors = allVisible.slice(0, 3)
+                const overflow = allVisible.slice(3)
+                const rowKey = `${r.company}-${r.date}-${i}`
+                const isExpanded = expandedInvestors === rowKey
                 return (
                   <tr
-                    key={`${r.company}-${r.date}-${i}`}
+                    key={rowKey}
                     className="border-b border-zinc-900 hover:bg-zinc-900/40 transition-colors"
                   >
                     <td className="px-4 py-3">
-                      <div className="flex items-center gap-2">
-                        <span className="font-medium text-zinc-100">{r.company}</span>
-                        {isRecent && (
-                          <span className="text-[9px] font-semibold bg-emerald-900/60 text-emerald-400 border border-emerald-800 rounded-full px-1.5 py-0.5 leading-none">
-                            NEW
-                          </span>
-                        )}
-                      </div>
+                      <span className="font-medium text-zinc-100">{r.company}</span>
                       <p className="text-[11px] text-zinc-500 mt-0.5">{r.subCategory}</p>
                     </td>
 
@@ -307,8 +364,28 @@ export default function FundingExplorerPage() {
 
                     <td className="px-4 py-3 text-zinc-400 text-xs hidden lg:table-cell max-w-xs">
                       {leadInvestors.length > 0
-                        ? <span className="line-clamp-2">{leadInvestors.join(', ')}{r.investors.length > 3 ? ` +${r.investors.length - 3}` : ''}</span>
-                        : <span className="text-zinc-700">—</span>
+                        ? <div className="relative">
+                            <span>{leadInvestors.join(', ')}</span>
+                            {overflow.length > 0 && (
+                              <button
+                                onClick={() => setExpandedInvestors(isExpanded ? null : rowKey)}
+                                className="ml-1 inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-medium bg-zinc-800 text-zinc-400 hover:bg-zinc-700 hover:text-zinc-200 transition-colors"
+                              >
+                                {isExpanded ? '−' : `+${overflow.length}`}
+                              </button>
+                            )}
+                            {isExpanded && (
+                              <div className="absolute left-0 top-full mt-1 z-20 bg-zinc-900 border border-zinc-700 rounded-lg px-3 py-2 shadow-xl min-w-48 max-w-xs">
+                                <p className="text-[10px] text-zinc-500 uppercase tracking-wider mb-1.5">All investors</p>
+                                <ul className="space-y-0.5">
+                                  {allVisible.map(inv => (
+                                    <li key={inv} className="text-zinc-300">{inv}</li>
+                                  ))}
+                                </ul>
+                              </div>
+                            )}
+                          </div>
+                        : null
                       }
                     </td>
 
@@ -358,7 +435,7 @@ export default function FundingExplorerPage() {
         <p className="text-[11px] text-zinc-600 mt-8 leading-relaxed max-w-3xl">
           Data compiled from Inc42, Entrackr, YourStory, Economic Times, Business Standard, Mercom
           India, and ET Energy World. Only rounds with a source URL from a reputed outlet are
-          included. Amounts are as stated in the source — undisclosed where not reported. INR amounts
+          included. Amounts are as stated in the source, undisclosed where not reported. INR amounts
           converted at the prevailing rate at time of announcement.
         </p>
       </div>

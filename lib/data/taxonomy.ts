@@ -5,6 +5,7 @@ export const SUB_SECTORS = [
   'Industrial Decarbonisation',
   'Carbon & Climate Management',
   'Built Environment',
+  'Circular Economy',
 ] as const
 
 export type SubSector = (typeof SUB_SECTORS)[number]
@@ -31,10 +32,10 @@ export const SUB_CATEGORIES: Record<SubSector, string[]> = {
     'Hard-to-abate transport',
   ],
   'Industrial Decarbonisation': [
-    'Battery recycling',
     'Green chemicals & synthetic biology',
-    'Waste & recycling',
     'Carbon capture & concrete',
+    'Green hydrogen & electrolysers',
+    'Industrial process efficiency',
   ],
   'Carbon & Climate Management': [
     'Earth observation & MRV',
@@ -49,15 +50,21 @@ export const SUB_CATEGORIES: Record<SubSector, string[]> = {
     'Green real estate finance',
     'Water & wastewater',
   ],
+  'Circular Economy': [
+    'Battery recycling',
+    'Waste & recycling',
+    'Plastic & polymer recycling',
+    'Sustainable materials & packaging',
+    'Extended producer responsibility (EPR)',
+  ],
 }
 
 export const TECH_TYPES = [
-  'Software / SaaS',
-  'Marketplace / aggregator',
-  'Deep-tech hardware',
-  'Manufacturing / industrials',
-  'Project developer',
-  'Fintech / risk',
+  'Software',
+  'Marketplace',
+  'Hardware & Industry',
+  'Project Development',
+  'Fintech',
 ] as const
 
 export type TechType = (typeof TECH_TYPES)[number]
@@ -73,9 +80,15 @@ export type ClimateOutcome = (typeof CLIMATE_OUTCOMES)[number]
 export const STAGES = [
   'Pre-seed',
   'Seed',
+  'Pre-Series A',
   'Series A',
+  'Pre-Series B',
   'Series B',
-  'Series C+',
+  'Series C',
+  'Series D',
+  'Series E',
+  'Pre-IPO',
+  'Acquired',
 ] as const
 
 export type Stage = (typeof STAGES)[number]
