@@ -4725,42 +4725,6 @@ export const FUNDING_ROUNDS: FundingRound[] = [
     ],
   },
 
-  // ENERGY — Renewables financing (Peak Ventures portfolio)
-  {
-    company: 'Metafin',
-    subSector: 'Energy',
-    subCategory: 'Renewables financing',
-    techType: 'Fintech',
-    climateOutcome: 'Enabling infrastructure',
-    stage: 'Seed',
-    amountUsdMn: 5,
-    date: '2024-02',
-    city: 'Gurugram',
-    geography: 'India-only',
-    investors: ['Prime Venture Partners', 'Varanium Capital'],
-    sources: [
-      { label: 'YourStory', url: 'https://yourstory.com/2024/02/cleantech-focused-nbfc-metafin-5m-prime-venture' },
-      { label: 'Entrackr', url: 'https://entrackr.com/2024/02/metafin-raises-5-mn-round-led-by-prime-venture-partners/' },
-    ],
-  },
-  {
-    company: 'Metafin',
-    subSector: 'Energy',
-    subCategory: 'Renewables financing',
-    techType: 'Fintech',
-    climateOutcome: 'Enabling infrastructure',
-    stage: 'Series A',
-    amountUsdMn: 10,
-    date: '2025-04',
-    city: 'Gurugram',
-    geography: 'India-only',
-    investors: ['Vertex Ventures SEA & India', 'Northern Arc', 'AU Small Finance Bank', 'Prime Venture Partners', 'Varanium Capital'],
-    sources: [
-      { label: 'YourStory', url: 'https://yourstory.com/2025/04/metafin-bags-10m-series-funding-round-vertex-ventures' },
-      { label: 'Entrackr', url: 'https://entrackr.com/snippets/metafin-raises-10-mn-in-series-a-round-led-by-vertex-ventures-9013053' },
-    ],
-  },
-
   // ENERGY — Energy storage (Peak Ventures portfolio)
   {
     company: 'Ion Energy',
@@ -4776,25 +4740,6 @@ export const FUNDING_ROUNDS: FundingRound[] = [
     investors: ['Amazon Climate Pledge Fund', 'Climate Capital', 'YourNest Venture Capital', 'Riso Capital', 'Venture Catalysts'],
     sources: [
       { label: 'YourStory', url: 'https://yourstory.com/2021/07/funding-alert-ion-energy-amazons-climate-pledge-fund' },
-    ],
-  },
-
-  // BUILT ENVIRONMENT — Water & wastewater (Peak Ventures portfolio)
-  {
-    company: 'Indra Water',
-    subSector: 'Built Environment',
-    subCategory: 'Water & wastewater',
-    techType: 'Hardware & Industry',
-    climateOutcome: 'Adaptation',
-    stage: 'Series A',
-    amountUsdMn: 4,
-    date: '2024-01',
-    city: 'Ahmedabad',
-    geography: 'India-only',
-    investors: ['Mela Ventures', 'Emerald Technology Ventures', 'Peak Sustainability Ventures', 'The Climate Angels'],
-    sources: [
-      { label: 'Inc42', url: 'https://inc42.com/buzz/cleantech-startup-indra-raises-4-mn-to-offer-b2b-water-purification-solutions/' },
-      { label: 'Entrackr', url: 'https://entrackr.com/2024/01/cleantech-startup-indra-raises-4-mn-in-series-a-round/' },
     ],
   },
 
