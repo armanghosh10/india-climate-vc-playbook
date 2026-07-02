@@ -760,4 +760,16 @@ export const INVESTOR_ENRICHMENTS: InvestorEnrichment[] = [
       { label: 'NIIF seeks $4B for new Master Fund II – Business Standard', url: 'https://www.business-standard.com/markets/news/adia-backed-niif-to-seek-4-bn-for-infrastructure-in-largest-ever-fundraise-124090500175_1.html' },
     ],
   },
+  {
+    name: 'Peak Sustainability Ventures',
+    type: 'impact-fund',
+    hq: 'Singapore',
+    climateFocus: 'dedicated',
+    ticketSizeUsdMn: { min: 0.5, max: 3 },
+    aum: null,
+    website: 'https://www.peakventures.in',
+    sources: [
+      { label: 'Peak Sustainability Ventures investments', url: 'https://www.peakventures.in/investments' },
+    ],
+  },
 ]
