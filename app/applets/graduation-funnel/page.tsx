@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { COHORT_ROWS } from '@/lib/data/cohorts'
 import { SUB_SECTORS } from '@/lib/data/taxonomy'
 import type { SubSector } from '@/lib/data/taxonomy'
+import { useCompanyProfile } from '@/contexts/CompanyProfileContext'
 
 // ── helpers ──────────────────────────────────────────────────────────────────
 
@@ -36,6 +37,7 @@ function pct(num: number, denom: number) {
 // ── component ────────────────────────────────────────────────────────────────
 
 export default function GraduationFunnelPage() {
+  const { openCompany } = useCompanyProfile()
   const [sectorFilter, setSectorFilter] = useState<SubSector | 'All'>('All')
   const [showSmall, setShowSmall] = useState(false)
 
@@ -204,7 +206,7 @@ export default function GraduationFunnelPage() {
                     <p className="text-zinc-500 mb-1.5 uppercase tracking-wider text-[10px]">Seed cohort</p>
                     <div className="flex flex-wrap gap-1">
                       {row.seedCompanies.map(c => (
-                        <span key={c} className="bg-zinc-800 text-zinc-300 rounded px-1.5 py-0.5">{c}</span>
+                        <button key={c} onClick={() => openCompany(c)} className="bg-zinc-800 text-zinc-300 rounded px-1.5 py-0.5 hover:text-emerald-400 hover:bg-zinc-700 transition-colors">{c}</button>
                       ))}
                     </div>
                   </div>
@@ -212,7 +214,7 @@ export default function GraduationFunnelPage() {
                     <p className="text-zinc-500 mb-1.5 uppercase tracking-wider text-[10px]">Reached Series A</p>
                     <div className="flex flex-wrap gap-1">
                       {row.graduatedToA.length > 0
-                        ? row.graduatedToA.map(c => <span key={c} className={`${SECTOR_FAINT[row.subSector]} border rounded px-1.5 py-0.5`}>{c}</span>)
+                        ? row.graduatedToA.map(c => <button key={c} onClick={() => openCompany(c)} className={`${SECTOR_FAINT[row.subSector]} border rounded px-1.5 py-0.5 hover:opacity-80 transition-opacity`}>{c}</button>)
                         : <span className="text-zinc-600 italic">None in dataset</span>
                       }
                     </div>
@@ -221,7 +223,7 @@ export default function GraduationFunnelPage() {
                     <p className="text-zinc-500 mb-1.5 uppercase tracking-wider text-[10px]">Reached Series B</p>
                     <div className="flex flex-wrap gap-1">
                       {row.graduatedToB.length > 0
-                        ? row.graduatedToB.map(c => <span key={c} className={`${SECTOR_FAINT[row.subSector]} border rounded px-1.5 py-0.5`}>{c}</span>)
+                        ? row.graduatedToB.map(c => <button key={c} onClick={() => openCompany(c)} className={`${SECTOR_FAINT[row.subSector]} border rounded px-1.5 py-0.5 hover:opacity-80 transition-opacity`}>{c}</button>)
                         : <span className="text-zinc-600 italic">None in dataset</span>
                       }
                     </div>

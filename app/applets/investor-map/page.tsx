@@ -4,6 +4,7 @@ import { useState, useMemo } from 'react'
 import Link from 'next/link'
 import { FUNDING_ROUNDS } from '@/lib/data/funding-rounds'
 import { INVESTOR_ENRICHMENTS } from '@/lib/data/investors'
+import { useCompanyProfile } from '@/contexts/CompanyProfileContext'
 import type { InvestorEnrichment, InvestorType } from '@/lib/data/investors'
 import { SUB_SECTORS, STAGES } from '@/lib/data/taxonomy'
 import type { SubSector, Stage } from '@/lib/data/taxonomy'
@@ -151,6 +152,7 @@ export default function InvestorMapPage() {
   const allProfiles = useMemo(() => buildInvestorProfiles(), [])
   const coInvestMap = useMemo(() => buildCoInvestMap(), [])
 
+  const { openCompany } = useCompanyProfile()
   const [search, setSearch] = useState('')
   const [sectorFilter, setSectorFilter] = useState<SubSector | 'All'>('All')
   const [stageFilter, setStageFilter] = useState<Stage | 'All'>('All')
@@ -384,7 +386,13 @@ export default function InvestorMapPage() {
                     <p className="text-[10px] uppercase tracking-wider text-zinc-500 mb-1.5">Portfolio companies (this dataset)</p>
                     <div className="flex flex-wrap gap-1.5">
                       {selected.companies.map(c => (
-                        <span key={c} className="text-xs bg-zinc-800 text-zinc-300 rounded px-2 py-0.5">{c}</span>
+                        <button
+                          key={c}
+                          onClick={() => openCompany(c)}
+                          className="text-xs bg-zinc-800 text-zinc-300 rounded px-2 py-0.5 hover:text-emerald-400 hover:bg-zinc-700 transition-colors"
+                        >
+                          {c}
+                        </button>
                       ))}
                     </div>
                   </div>

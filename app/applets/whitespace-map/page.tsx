@@ -2,6 +2,7 @@
 
 import { useState, useMemo } from 'react'
 import Link from 'next/link'
+import { useCompanyProfile } from '@/contexts/CompanyProfileContext'
 import { FUNDING_ROUNDS } from '@/lib/data/funding-rounds'
 import { SECTOR_CONTEXTS, GAP_NOTES, CELL_MARKET_NOTES } from '@/lib/data/whitespace'
 import { SUB_SECTORS, TECH_TYPES } from '@/lib/data/taxonomy'
@@ -65,6 +66,7 @@ const TECH_SHORT: Record<TechType, string> = {
 export default function WhitespaceMapPage() {
   const matrix = useMemo(() => buildMatrix(), [])
   const [selected, setSelected] = useState<CellData | null>(null)
+  const { openCompany } = useCompanyProfile()
 
   const selectedContext = selected
     ? SECTOR_CONTEXTS.find(c => c.subSector === selected.subSector)
@@ -202,7 +204,14 @@ export default function WhitespaceMapPage() {
                 {selected.companies.length > 0 ? (
                   <ul className="space-y-1">
                     {selected.companies.map(c => (
-                      <li key={c} className="text-sm text-zinc-200">· {c}</li>
+                      <li key={c}>
+                        <button
+                          onClick={() => openCompany(c)}
+                          className="text-sm text-zinc-200 hover:text-emerald-400 transition-colors"
+                        >
+                          · {c}
+                        </button>
+                      </li>
                     ))}
                   </ul>
                 ) : (

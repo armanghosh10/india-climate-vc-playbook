@@ -4,6 +4,7 @@ import { useState, useMemo } from 'react'
 import Link from 'next/link'
 import { FUNDING_ROUNDS } from '@/lib/data/funding-rounds'
 import { SUB_SECTORS, STAGES } from '@/lib/data/taxonomy'
+import { useCompanyProfile } from '@/contexts/CompanyProfileContext'
 
 // ── colour mappings ──────────────────────────────────────────────────────────
 
@@ -148,6 +149,7 @@ export default function FundingExplorerPage() {
   }
 
   function resetPage() { setPage(1) }
+  const { openCompany } = useCompanyProfile()
 
   return (
     <main className="min-h-screen bg-zinc-950 text-zinc-100 py-10">
@@ -331,7 +333,12 @@ export default function FundingExplorerPage() {
                     className="border-b border-zinc-900 hover:bg-zinc-900/40 transition-colors"
                   >
                     <td className="px-4 py-3">
-                      <span className="font-medium text-zinc-100">{r.company}</span>
+                      <button
+                        onClick={() => openCompany(r.company)}
+                        className="font-medium text-zinc-100 hover:text-emerald-400 transition-colors text-left"
+                      >
+                        {r.company}
+                      </button>
                       <p className="text-[11px] text-zinc-500 mt-0.5">{r.subCategory}</p>
                     </td>
 

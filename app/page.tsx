@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import DealVelocityChart from '@/components/DealVelocityChart'
 
 const APPLETS = [
   {
@@ -85,6 +86,10 @@ export default function Home() {
             </a>
           </p>
         </header>
+
+        <div className="mb-10">
+          <DealVelocityChart />
+        </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {APPLETS.map((a) => (
