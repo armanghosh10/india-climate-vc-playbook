@@ -64,6 +64,9 @@ export default function Home() {
             Policy data from MNRE, MoEFCC. Market sizing from CEEW, CPI, IEA.
           </p>
           <p className="text-zinc-500 text-sm mt-4">
+            By{' '}
+            <span className="text-zinc-300 font-medium">Arman Ghosh</span>
+            {' · '}
             <a
               href="https://www.linkedin.com/in/arman-ghosh"
               target="_blank"
