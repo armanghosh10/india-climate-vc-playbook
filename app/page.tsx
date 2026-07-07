@@ -73,7 +73,7 @@ export default function Home() {
               rel="noopener noreferrer"
               className="text-emerald-400 hover:text-emerald-300 underline underline-offset-2"
             >
-              climate-tech-vc-map
+              LinkedIn
             </a>
             {' · '}
             <a
