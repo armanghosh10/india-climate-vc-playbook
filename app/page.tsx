@@ -56,7 +56,7 @@ export default function Home() {
             India Climate-Tech Map
           </h1>
           <p className="text-zinc-400 text-lg max-w-2xl">
-            A comprehensive dashboard covering India&apos;s climate-tech investment landscape —
+            A comprehensive dashboard covering India&apos;s climate-tech investment landscape,
             from pre-seed to Series D, across energy, transport, agriculture, and beyond.
           </p>
           <p className="text-zinc-600 text-sm mt-3 max-w-2xl">
