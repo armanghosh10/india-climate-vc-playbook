@@ -748,7 +748,7 @@ export const INVESTOR_ENRICHMENTS: InvestorEnrichment[] = [
     ],
   },
   {
-    name: 'NIIF India-Japan Fund',
+    name: 'NIIF',
     type: 'dfi',
     hq: 'New Delhi',
     climateFocus: 'majority',

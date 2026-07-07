@@ -4681,9 +4681,9 @@ export const FUNDING_ROUNDS: FundingRound[] = [
     date: '2025-10',
     city: 'Pune',
     geography: 'India-only',
-    investors: ['NIIF India-Japan Fund'],
+    investors: ['NIIF'],
     sources: [
-      { label: 'EKA Mobility INR 500 Cr NIIF India-Japan Fund – Inc42', url: 'https://inc42.com/buzz/eka-mobility-raises-inr-500-cr-to-boost-ev-manufacturing-capacity/' },
+      { label: 'EKA Mobility INR 500 Cr NIIF – Inc42', url: 'https://inc42.com/buzz/eka-mobility-raises-inr-500-cr-to-boost-ev-manufacturing-capacity/' },
       { label: 'India-Japan Fund invests ₹500 Cr in EKA – Business Standard', url: 'https://www.business-standard.com/industry/news/india-japan-fund-invests-500-crore-eka-mobility-electric-vehicles-125101701274_1.html' },
       { label: 'EKA Mobility NIIF round – YourStory', url: 'https://yourstory.com/2025/10/eka-mobility-raises-rs-500-cr-niif-india-japan-fund' },
     ],
@@ -4718,9 +4718,9 @@ export const FUNDING_ROUNDS: FundingRound[] = [
     date: '2024-01',
     city: 'Mumbai',
     geography: 'India-only',
-    investors: ['NIIF India-Japan Fund'],
+    investors: ['NIIF'],
     sources: [
-      { label: 'NIIF India-Japan Fund Rs 400 Cr in Mahindra MLLM – Business Standard', url: 'https://www.business-standard.com/companies/news/niif-s-india-japan-fund-to-put-rs-400-cr-in-m-m-s-last-mile-mobility-arm-124011100294_1.html' },
+      { label: 'NIIF Rs 400 Cr in Mahindra MLLM – Business Standard', url: 'https://www.business-standard.com/companies/news/niif-s-india-japan-fund-to-put-rs-400-cr-in-m-m-s-last-mile-mobility-arm-124011100294_1.html' },
       { label: 'India-Japan Fund Mahindra investment – YourStory', url: 'https://yourstory.com/2024/01/india-japan-fund-mahindra-mobility-investment' },
     ],
   },

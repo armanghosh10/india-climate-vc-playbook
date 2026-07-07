@@ -56,8 +56,8 @@ export default function Home() {
             India Climate-Tech Map
           </h1>
           <p className="text-zinc-400 text-lg max-w-2xl">
-            Interactive tools for analysing India&apos;s climate-tech investment landscape,
-            built the way an analyst actually works a market.
+            A comprehensive dashboard covering India&apos;s climate-tech investment landscape —
+            from pre-seed to Series D, across energy, transport, agriculture, and beyond.
           </p>
           <p className="text-zinc-600 text-sm mt-3 max-w-2xl">
             Every data point sourced and cited. Funding figures from Inc42, Entrackr, BloombergNEF.
@@ -83,6 +83,13 @@ export default function Home() {
               className="text-emerald-400 hover:text-emerald-300 underline underline-offset-2"
             >
               GitHub
+            </a>
+            {' · '}
+            <a
+              href="mailto:arman.ghosh@plaksha.edu.in"
+              className="text-emerald-400 hover:text-emerald-300 underline underline-offset-2"
+            >
+              arman.ghosh@plaksha.edu.in
             </a>
           </p>
         </header>
