@@ -50,7 +50,7 @@ export default function Home() {
       <div className="max-w-7xl mx-auto px-6">
         <header className="mb-12">
           <div className="inline-block text-xs font-medium text-emerald-400 bg-emerald-950/40 border border-emerald-900 rounded-full px-3 py-1 mb-4">
-            India · Climate Tech · 2020–present
+            India · Climate Tech · Equity Investments · Seed to Series D · 2020–present
           </div>
           <h1 className="text-3xl font-bold mb-3 tracking-tight">
             India Climate-Tech Map
