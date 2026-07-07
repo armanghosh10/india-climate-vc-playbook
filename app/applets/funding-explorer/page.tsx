@@ -3,7 +3,7 @@
 import { useState, useMemo } from 'react'
 import Link from 'next/link'
 import { FUNDING_ROUNDS } from '@/lib/data/funding-rounds'
-import { SUB_SECTORS, STAGES } from '@/lib/data/taxonomy'
+import { SUB_SECTORS, STAGES, CLIMATE_OUTCOMES } from '@/lib/data/taxonomy'
 import { useCompanyProfile } from '@/contexts/CompanyProfileContext'
 
 // ── colour mappings ──────────────────────────────────────────────────────────
@@ -18,6 +18,11 @@ const SECTOR_COLOURS: Record<string, string> = {
   'Circular Economy': 'bg-lime-950/60 text-lime-300 border-lime-900',
 }
 
+const OUTCOME_COLOURS: Record<string, string> = {
+  'Mitigation': 'bg-emerald-950/60 text-emerald-300 border-emerald-800',
+  'Adaptation': 'bg-sky-950/60 text-sky-300 border-sky-800',
+}
+
 const STAGE_COLOURS: Record<string, string> = {
   'Pre-seed': 'bg-zinc-800 text-zinc-300',
   'Seed': 'bg-emerald-950 text-emerald-300',
@@ -25,6 +30,7 @@ const STAGE_COLOURS: Record<string, string> = {
   'Series A': 'bg-blue-950 text-blue-300',
   'Pre-Series B': 'bg-indigo-950 text-indigo-300',
   'Series B': 'bg-violet-950 text-violet-300',
+  'Pre-Series C': 'bg-fuchsia-950 text-fuchsia-300',
   'Series C': 'bg-amber-950 text-amber-300',
   'Series D': 'bg-orange-950 text-orange-300',
   'Series E': 'bg-red-950 text-red-300',
@@ -99,6 +105,7 @@ export default function FundingExplorerPage() {
   const [sectorFilter, setSectorFilter] = useState<string>('All')
   const [stageFilter, setStageFilter] = useState<string>('All')
   const [yearFilter, setYearFilter] = useState<string>('All')
+  const [outcomeFilter, setOutcomeFilter] = useState<string>('All')
   const [searchQuery, setSearchQuery] = useState('')
   const [sortCol, setSortCol] = useState<'date' | 'amount'>('date')
   const [sortDir, setSortDir] = useState<'desc' | 'asc'>('desc')
@@ -111,6 +118,7 @@ export default function FundingExplorerPage() {
     if (sectorFilter !== 'All') rows = rows.filter(r => r.subSector === sectorFilter)
     if (stageFilter !== 'All') rows = rows.filter(r => r.stage === stageFilter)
     if (yearFilter !== 'All') rows = rows.filter(r => r.date.startsWith(yearFilter))
+    if (outcomeFilter !== 'All') rows = rows.filter(r => r.climateOutcome === outcomeFilter)
     if (searchQuery.trim()) {
       const q = searchQuery.toLowerCase()
       rows = rows.filter(r =>
@@ -131,7 +139,7 @@ export default function FundingExplorerPage() {
     })
 
     return rows
-  }, [sectorFilter, stageFilter, yearFilter, searchQuery, sortCol, sortDir])
+  }, [sectorFilter, stageFilter, yearFilter, outcomeFilter, searchQuery, sortCol, sortDir])
 
   const totalPages = Math.ceil(filtered.length / PAGE_SIZE)
   const pageRows = filtered.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE)
@@ -244,6 +252,33 @@ export default function FundingExplorerPage() {
             ))}
           </div>
 
+          {/* climate outcome chips */}
+          <div className="flex flex-wrap gap-2">
+            <button
+              onClick={() => { setOutcomeFilter('All'); resetPage() }}
+              className={`px-3 py-1 rounded-full text-xs font-medium border transition-colors ${
+                outcomeFilter === 'All'
+                  ? 'bg-zinc-100 text-zinc-900 border-zinc-100'
+                  : 'bg-zinc-900 text-zinc-400 border-zinc-700 hover:border-zinc-500'
+              }`}
+            >
+              All outcomes
+            </button>
+            {CLIMATE_OUTCOMES.map(o => (
+              <button
+                key={o}
+                onClick={() => { setOutcomeFilter(o); resetPage() }}
+                className={`px-3 py-1 rounded-full text-xs font-medium border transition-colors ${
+                  outcomeFilter === o
+                    ? 'bg-zinc-100 text-zinc-900 border-zinc-100'
+                    : `${OUTCOME_COLOURS[o]} hover:opacity-90`
+                }`}
+              >
+                {o}
+              </button>
+            ))}
+          </div>
+
           {/* stage + year + search row */}
           <div className="flex flex-wrap gap-2 items-center">
             {['All', ...STAGES].map(s => (
@@ -277,9 +312,9 @@ export default function FundingExplorerPage() {
               className="text-xs bg-zinc-900 border border-zinc-800 text-zinc-300 rounded px-3 py-1 h-7 w-48 placeholder:text-zinc-600 focus:outline-none focus:border-zinc-600"
             />
 
-            {(sectorFilter !== 'All' || stageFilter !== 'All' || yearFilter !== 'All' || searchQuery) && (
+            {(sectorFilter !== 'All' || stageFilter !== 'All' || yearFilter !== 'All' || outcomeFilter !== 'All' || searchQuery) && (
               <button
-                onClick={() => { setSectorFilter('All'); setStageFilter('All'); setYearFilter('All'); setSearchQuery(''); setPage(1) }}
+                onClick={() => { setSectorFilter('All'); setStageFilter('All'); setYearFilter('All'); setOutcomeFilter('All'); setSearchQuery(''); setPage(1) }}
                 className="text-xs text-zinc-500 hover:text-zinc-300 underline underline-offset-2"
               >
                 Reset filters
@@ -295,6 +330,7 @@ export default function FundingExplorerPage() {
               <tr className="bg-zinc-900 border-b border-zinc-800 text-zinc-400 text-xs uppercase tracking-wider">
                 <th className="text-left px-4 py-3 font-medium">Company</th>
                 <th className="text-left px-4 py-3 font-medium">Sector</th>
+                <th className="text-left px-4 py-3 font-medium hidden md:table-cell">Climate</th>
                 <th className="text-left px-4 py-3 font-medium">Stage</th>
                 <th
                   className="text-right px-4 py-3 font-medium cursor-pointer hover:text-zinc-200 select-none"
@@ -316,7 +352,7 @@ export default function FundingExplorerPage() {
             <tbody>
               {pageRows.length === 0 && (
                 <tr>
-                  <td colSpan={8} className="text-center text-zinc-500 py-12 text-sm">
+                  <td colSpan={9} className="text-center text-zinc-500 py-12 text-sm">
                     No rounds match the current filters.
                   </td>
                 </tr>
@@ -345,6 +381,12 @@ export default function FundingExplorerPage() {
                     <td className="px-4 py-3">
                       <span className={`text-[11px] font-medium border rounded-full px-2 py-0.5 ${SECTOR_COLOURS[r.subSector]}`}>
                         {r.subSector}
+                      </span>
+                    </td>
+
+                    <td className="px-4 py-3 hidden md:table-cell">
+                      <span className={`text-[11px] font-medium border rounded-full px-2 py-0.5 ${OUTCOME_COLOURS[r.climateOutcome] ?? 'bg-zinc-800 text-zinc-400 border-zinc-700'}`}>
+                        {r.climateOutcome}
                       </span>
                     </td>
 

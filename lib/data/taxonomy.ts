@@ -72,7 +72,6 @@ export type TechType = (typeof TECH_TYPES)[number]
 export const CLIMATE_OUTCOMES = [
   'Mitigation',
   'Adaptation',
-  'Enabling infrastructure',
 ] as const
 
 export type ClimateOutcome = (typeof CLIMATE_OUTCOMES)[number]
@@ -84,6 +83,7 @@ export const STAGES = [
   'Series A',
   'Pre-Series B',
   'Series B',
+  'Pre-Series C',
   'Series C',
   'Series D',
   'Series E',
